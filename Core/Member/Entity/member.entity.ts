@@ -1,4 +1,5 @@
 export class MemberEntity {
+	protected id: string
 	protected FullName: string
 	protected Email: string
 	protected PhoneNumber: string
@@ -8,6 +9,10 @@ export class MemberEntity {
 	protected Tier: string
 	protected LifetimePoint: number
 	protected YTDPoint: number
+
+	public setId (id: string) {
+		this.id = id
+	}
 
 	public setFullName (FullName: string) {
 		this.FullName = FullName
@@ -27,6 +32,10 @@ export class MemberEntity {
 
 	public setDateOfBirth (DateOfBirth: Date)  {
 		this.DateOfBirth = DateOfBirth
+	}
+
+	public getId () {
+		return this.id
 	}
 
 	public getFullName () {
