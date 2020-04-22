@@ -18,10 +18,9 @@ export class ClientEnrollNewMember {
       memberEntity.setPhoneNumber (PhoneNumber)
       memberEntity.setRegisterDate (RegisterDate)
       memberEntity.setDateOfBirth (DateOfBirth)
-      this.repository.save(memberEntity)
-      return true
+      return await this.repository.save(memberEntity)
     } catch (error) {
-      return error
+      throw new Error (error)
     }
   }
 
