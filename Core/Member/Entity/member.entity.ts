@@ -10,52 +10,32 @@ export class MemberEntity {
 	protected LifetimePoint: number
 	protected YTDPoint: number
 
-	public setId (id: string) {
-		this.id = id
+	public import (props) {
+		this.id = props.id
+		this.FullName = props.FullName
+		this.Email = props.string
+		this.PhoneNumber = props.PhoneNumber
+		this.Status = props.Status
+		this.RegisterDate = props.RegisterDate
+		this.DateOfBirth = props.DateOfBirth
+		this.Tier = props.Tier
+		this.LifetimePoint = props.LifetimePoint
+		this.YTDPoint = props.YTDPoint
 	}
 
-	public setFullName (FullName: string) {
-		this.FullName = FullName
-	}
-
-	public setEmail (Email: string)  {
-		this.Email = Email
-	}
-
-	public setPhoneNumber (PhoneNumber: string)  {
-		this.PhoneNumber = PhoneNumber
-	}
-
-	public setRegisterDate (RegisterDate: Date)  {
-		this.RegisterDate = RegisterDate
-	}
-
-	public setDateOfBirth (DateOfBirth: Date)  {
-		this.DateOfBirth = DateOfBirth
-	}
-
-	public getId () {
-		return this.id
-	}
-
-	public getFullName () {
-		return this.FullName
-	}
-
-	public getEmail () {
-		return this.Email
-	}
-
-	public getPhoneNumber () {
-		return this.PhoneNumber
-	}
-
-	public getRegisterDate () {
-		return this.RegisterDate
-	}
-
-	public getDateOfBirth () {
-		return this.DateOfBirth
+	public export () {
+		return {
+			id: this.id,
+			FullName: this.FullName,
+			Email: this.Email,
+			PhoneNumber: this.PhoneNumber,
+			Status: this.Status,
+			RegisterDate: this.RegisterDate,
+			DateOfBirth: this.DateOfBirth,
+			Tier: this.Tier,
+			LifetimePoint: this.LifetimePoint,
+			YTDPoint: this.YTDPoint
+		}
 	}
 
 }

@@ -1,8 +1,9 @@
 import { MemberEntity } from '../Entity/member.entity'
 
 export interface MemberRepositoryInterface {
-	create (member: MemberEntity): void;
+	generateId (): number;
 	save (data: MemberEntity);
-	mapToDomain (data): MemberEntity;
-	mapToDatabase (data: MemberEntity);
+	findAll (limit: number, offset: number, search: string, searchableFields: string[], sort: string, sortType: string): Promise <MemberEntity[]>;
+	persistenceToDomain (data): MemberEntity;
+	domainJSONtoPersistence (data: MemberEntity);
 }
