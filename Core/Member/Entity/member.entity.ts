@@ -1,3 +1,26 @@
+
+interface enrollmentData {
+	id: string
+	FullName: string
+	Email: string
+	PhoneNumber: string
+	RegisterDate: Date
+	DateOfBirth: Date
+}
+
+interface persistenceData {
+	id: string
+	FullName: string
+	Email: string
+	PhoneNumber: string
+	Status: boolean
+	RegisterDate: Date
+	DateOfBirth: Date
+	Tier: string
+	LifetimePoint: number
+	YTDPoint: number
+}
+
 export class MemberEntity {
 	protected id: string
 	protected FullName: string
@@ -10,52 +33,41 @@ export class MemberEntity {
 	protected LifetimePoint: number
 	protected YTDPoint: number
 
-	public setId (id: string) {
-		this.id = id
+	public enroll (data: enrollmentData): void {
+		this.id = data.id
+		this.FullName = data.FullName
+		this.Email = data.Email
+		this.PhoneNumber = data.PhoneNumber
+		this.RegisterDate = data.RegisterDate
+		this.DateOfBirth = data.DateOfBirth
 	}
 
-	public setFullName (FullName: string) {
-		this.FullName = FullName
+	public importFromPersistence (data: persistenceData): void {
+		this.id = data.id
+		this.FullName = data.FullName
+		this.Email = data.Email
+		this.PhoneNumber = data.PhoneNumber
+		this.Status = data.Status
+		this.RegisterDate = data.RegisterDate
+		this.DateOfBirth = data.DateOfBirth
+		this.Tier = data.Tier
+		this.LifetimePoint = data.LifetimePoint
+		this.YTDPoint = data.YTDPoint
 	}
 
-	public setEmail (Email: string)  {
-		this.Email = Email
-	}
-
-	public setPhoneNumber (PhoneNumber: string)  {
-		this.PhoneNumber = PhoneNumber
-	}
-
-	public setRegisterDate (RegisterDate: Date)  {
-		this.RegisterDate = RegisterDate
-	}
-
-	public setDateOfBirth (DateOfBirth: Date)  {
-		this.DateOfBirth = DateOfBirth
-	}
-
-	public getId () {
-		return this.id
-	}
-
-	public getFullName () {
-		return this.FullName
-	}
-
-	public getEmail () {
-		return this.Email
-	}
-
-	public getPhoneNumber () {
-		return this.PhoneNumber
-	}
-
-	public getRegisterDate () {
-		return this.RegisterDate
-	}
-
-	public getDateOfBirth () {
-		return this.DateOfBirth
+	public exportToPersistence () {
+		return {
+			id: this.id,
+			FullName: this.FullName,
+			Email: this.Email,
+			PhoneNumber: this.PhoneNumber,
+			Status: this.Status,
+			RegisterDate: this.RegisterDate,
+			DateOfBirth: this.DateOfBirth,
+			Tier: this.Tier,
+			LifetimePoint: this.LifetimePoint,
+			YTDPoint: this.YTDPoint
+		}
 	}
 
 }

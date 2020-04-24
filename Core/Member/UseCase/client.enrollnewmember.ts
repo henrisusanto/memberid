@@ -12,12 +12,14 @@ export class ClientEnrollNewMember {
   public async  execute (FullName, Email, PhoneNumber, RegisterDate, DateOfBirth) {
     try {
       const memberEntity = new MemberEntity()
-      await this.repository.create(memberEntity)
-      memberEntity.setFullName (FullName)
-      memberEntity.setEmail (Email)
-      memberEntity.setPhoneNumber (PhoneNumber)
-      memberEntity.setRegisterDate (RegisterDate)
-      memberEntity.setDateOfBirth (DateOfBirth)
+      memberEntity.enroll({
+        id: await this.repository.generateId (),
+        FullName: FullName,
+        Email: Email,
+        PhoneNumber: PhoneNumber,
+        RegisterDate: RegisterDate,
+        DateOfBirth: DateOfBirth
+      })
       return await this.repository.save(memberEntity)
     } catch (error) {
       throw new Error (error)
