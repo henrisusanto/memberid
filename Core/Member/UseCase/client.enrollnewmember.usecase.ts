@@ -20,7 +20,8 @@ export class ClientEnrollNewMember {
         RegisterDate: RegisterDate,
         DateOfBirth: DateOfBirth
       })
-      return await this.repository.save(memberEntity)
+      const saved = await this.repository.save(memberEntity)
+      return saved.exportToPersistence()
     } catch (error) {
       throw new Error (error)
     }

@@ -13,7 +13,8 @@ export class ClientUpdateMemberProfile {
     try {
       const memberEntity = new MemberEntity()
       memberEntity.updateProfile ({id, FullName, Email, PhoneNumber, RegisterDate, DateOfBirth})
-      return await this.repository.save(memberEntity)
+      const saved = await this.repository.save(memberEntity)
+      return saved.exportToPersistence()
     } catch (error) {
       throw new Error (error)
     }

@@ -16,7 +16,7 @@ interface persistenceData {
 	Status: boolean
 	RegisterDate: Date
 	DateOfBirth: Date
-	Tier: string
+	Tier: number
 	LifetimePoint: number
 	YTDPoint: number
 }
@@ -29,7 +29,7 @@ export class MemberEntity {
 	protected Status: boolean
 	protected RegisterDate: Date
 	protected DateOfBirth: Date
-	protected Tier: string
+	protected Tier: number
 	protected LifetimePoint: number
 	protected YTDPoint: number
 
@@ -40,6 +40,11 @@ export class MemberEntity {
 		this.PhoneNumber = data.PhoneNumber
 		this.RegisterDate = data.RegisterDate
 		this.DateOfBirth = data.DateOfBirth
+
+		this.Status = true
+		this.Tier = 0
+		this.LifetimePoint = 0
+		this.YTDPoint = 0
 	}
 
 	public updateProfile (data: memberProfile): void {
