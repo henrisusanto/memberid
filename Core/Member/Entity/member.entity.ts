@@ -51,6 +51,14 @@ export class MemberEntity {
 		this.DateOfBirth = data.DateOfBirth
 	}
 
+	public disable () {
+		this.Status = false
+	}
+
+	public enable () {
+		this.Status = true
+	}
+
 	public importFromPersistence (data: persistenceData): void {
 		this.id = data.id
 		this.FullName = data.FullName
