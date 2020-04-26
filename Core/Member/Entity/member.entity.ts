@@ -1,6 +1,6 @@
 
-interface enrollmentData {
-	id: string
+interface memberProfile {
+	id: number
 	FullName: string
 	Email: string
 	PhoneNumber: string
@@ -9,7 +9,7 @@ interface enrollmentData {
 }
 
 interface persistenceData {
-	id: string
+	id: number
 	FullName: string
 	Email: string
 	PhoneNumber: string
@@ -22,7 +22,7 @@ interface persistenceData {
 }
 
 export class MemberEntity {
-	protected id: string
+	protected id: number
 	protected FullName: string
 	protected Email: string
 	protected PhoneNumber: string
@@ -33,7 +33,16 @@ export class MemberEntity {
 	protected LifetimePoint: number
 	protected YTDPoint: number
 
-	public enroll (data: enrollmentData): void {
+	public enroll (data: memberProfile): void {
+		this.id = data.id
+		this.FullName = data.FullName
+		this.Email = data.Email
+		this.PhoneNumber = data.PhoneNumber
+		this.RegisterDate = data.RegisterDate
+		this.DateOfBirth = data.DateOfBirth
+	}
+
+	public updateProfile (data: memberProfile): void {
 		this.id = data.id
 		this.FullName = data.FullName
 		this.Email = data.Email

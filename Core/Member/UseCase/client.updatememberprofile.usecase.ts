@@ -1,7 +1,7 @@
 import { MemberRepositoryInterface } from '../RepositoryInterface/member.repository.interface'
 import { MemberEntity } from '../Entity/member.entity'
 
-export class ClientEnrollNewMember {
+export class ClientUpdateMemberProfile {
 
 	protected repository
 
@@ -9,17 +9,10 @@ export class ClientEnrollNewMember {
 		this.repository = repositoryConcrete
 	}
 
-  public async  execute (FullName: string, Email: string, PhoneNumber: string, RegisterDate: Date, DateOfBirth: Date) {
+  public async  execute (id: number, FullName: string, Email: string, PhoneNumber: string, RegisterDate: Date, DateOfBirth: Date) {
     try {
       const memberEntity = new MemberEntity()
-      memberEntity.enroll({
-        id: await this.repository.generateId (),
-        FullName: FullName,
-        Email: Email,
-        PhoneNumber: PhoneNumber,
-        RegisterDate: RegisterDate,
-        DateOfBirth: DateOfBirth
-      })
+      memberEntity.updateProfile ({id, FullName, Email, PhoneNumber, RegisterDate, DateOfBirth})
       return await this.repository.save(memberEntity)
     } catch (error) {
       throw new Error (error)
