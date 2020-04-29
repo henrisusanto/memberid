@@ -1,4 +1,4 @@
-import { MemberRepositoryInterface } from '../RepositoryInterface/member.repository.interface'
+import { MemberRepositoryInterface } from '../RepositoryInterface/member.repositoryinterface'
 import { MemberEntity } from '../Entity/member.entity'
 
 export class ClientEnrollNewMember {

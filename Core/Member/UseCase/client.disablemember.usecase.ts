@@ -1,4 +1,4 @@
-import { MemberRepositoryInterface } from '../RepositoryInterface/member.repository.interface'
+import { MemberRepositoryInterface } from '../RepositoryInterface/member.repositoryinterface'
 
 export class ClientDisableMember {
 
