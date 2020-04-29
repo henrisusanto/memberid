@@ -13,7 +13,6 @@ export class ClientEnrollNewMember {
     try {
       const memberEntity = new MemberEntity()
       memberEntity.enroll({
-        id: await this.repository.generateId (),
         FullName: FullName,
         Email: Email,
         PhoneNumber: PhoneNumber,
@@ -21,7 +20,7 @@ export class ClientEnrollNewMember {
         DateOfBirth: DateOfBirth
       })
       const saved = await this.repository.save(memberEntity)
-      return saved.exportToPersistence()
+      return saved.exportProfile()
     } catch (error) {
       throw new Error (error)
     }

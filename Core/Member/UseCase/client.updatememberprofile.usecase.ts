@@ -9,12 +9,12 @@ export class ClientUpdateMemberProfile {
 		this.repository = repositoryConcrete
 	}
 
-  public async  execute (id: number, FullName: string, Email: string, PhoneNumber: string, RegisterDate: Date, DateOfBirth: Date) {
+  public async  execute (Id: number, FullName: string, Email: string, PhoneNumber: string, RegisterDate: Date, DateOfBirth: Date) {
     try {
       const memberEntity = new MemberEntity()
-      memberEntity.updateProfile ({id, FullName, Email, PhoneNumber, RegisterDate, DateOfBirth})
+      memberEntity.updateProfile (Id, {FullName, Email, PhoneNumber, RegisterDate, DateOfBirth})
       const saved = await this.repository.save(memberEntity)
-      return saved.exportToPersistence()
+      return saved.exportProfile()
     } catch (error) {
       throw new Error (error)
     }

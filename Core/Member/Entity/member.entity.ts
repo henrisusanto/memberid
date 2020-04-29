@@ -1,6 +1,5 @@
 
-interface memberProfile {
-	id: number
+interface MemberProfile {
 	FullName: string
 	Email: string
 	PhoneNumber: string
@@ -8,8 +7,8 @@ interface memberProfile {
 	DateOfBirth: Date
 }
 
-interface persistenceData {
-	id: number
+interface PersistenceData {
+	Id: number
 	FullName: string
 	Email: string
 	PhoneNumber: string
@@ -26,7 +25,7 @@ interface persistenceData {
 }
 
 export class MemberEntity {
-	protected id: number
+	protected Id: number
 	protected FullName: string
 	protected Email: string
 	protected PhoneNumber: string
@@ -41,8 +40,7 @@ export class MemberEntity {
 	protected LifetimeSpending: number
 	protected YTDSpending: number
 
-	public enroll (data: memberProfile): void {
-		this.id = data.id
+	public enroll (data: MemberProfile): void {
 		this.FullName = data.FullName
 		this.Email = data.Email
 		this.PhoneNumber = data.PhoneNumber
@@ -59,8 +57,8 @@ export class MemberEntity {
 		this.YTDSpending = 0
 	}
 
-	public updateProfile (data: memberProfile): void {
-		this.id = data.id
+	public updateProfile (Id: number, data: MemberProfile): void {
+		this.Id = Id
 		this.FullName = data.FullName
 		this.Email = data.Email
 		this.PhoneNumber = data.PhoneNumber
@@ -76,8 +74,8 @@ export class MemberEntity {
 		this.Status = true
 	}
 
-	public importFromPersistence (data: persistenceData): void {
-		this.id = data.id
+	public importFromPersistence (data: PersistenceData): void {
+		this.Id = data.Id
 		this.FullName = data.FullName
 		this.Email = data.Email
 		this.PhoneNumber = data.PhoneNumber
@@ -93,9 +91,20 @@ export class MemberEntity {
 		this.YTDSpending = data.YTDSpending
 	}
 
+	public exportProfile () {
+		return {
+			Id: this.Id,
+			FullName: this.FullName,
+			Email: this.Email,
+			PhoneNumber: this.PhoneNumber,
+			RegisterDate: this.RegisterDate,
+			DateOfBirth: this.DateOfBirth
+		}
+	}
+
 	public exportToPersistence () {
 		return {
-			id: this.id,
+			Id: this.Id,
 			FullName: this.FullName,
 			Email: this.Email,
 			PhoneNumber: this.PhoneNumber,
