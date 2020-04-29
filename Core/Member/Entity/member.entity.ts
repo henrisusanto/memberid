@@ -19,6 +19,10 @@ interface persistenceData {
 	Tier: number
 	LifetimePoint: number
 	YTDPoint: number
+	LifetimeVisit: number
+	YTDVisit: number
+	LifetimeSpending: number
+	YTDSpending: number
 }
 
 export class MemberEntity {
@@ -32,6 +36,10 @@ export class MemberEntity {
 	protected Tier: number
 	protected LifetimePoint: number
 	protected YTDPoint: number
+	protected LifetimeVisit: number
+	protected YTDVisit: number
+	protected LifetimeSpending: number
+	protected YTDSpending: number
 
 	public enroll (data: memberProfile): void {
 		this.id = data.id
@@ -45,6 +53,10 @@ export class MemberEntity {
 		this.Tier = 0
 		this.LifetimePoint = 0
 		this.YTDPoint = 0
+		this.LifetimeVisit = 0
+		this.YTDVisit = 0
+		this.LifetimeSpending = 0
+		this.YTDSpending = 0
 	}
 
 	public updateProfile (data: memberProfile): void {
@@ -75,6 +87,10 @@ export class MemberEntity {
 		this.Tier = data.Tier
 		this.LifetimePoint = data.LifetimePoint
 		this.YTDPoint = data.YTDPoint
+		this.LifetimeVisit = data.LifetimeVisit
+		this.YTDVisit = data.YTDVisit
+		this.LifetimeSpending = data.LifetimeSpending
+		this.YTDSpending = data.YTDSpending
 	}
 
 	public exportToPersistence () {
@@ -88,7 +104,11 @@ export class MemberEntity {
 			DateOfBirth: this.DateOfBirth,
 			Tier: this.Tier,
 			LifetimePoint: this.LifetimePoint,
-			YTDPoint: this.YTDPoint
+			YTDPoint: this.YTDPoint,
+			LifetimeVisit: this.LifetimeVisit,
+			YTDVisit: this.YTDVisit,
+			LifetimeSpending: this.LifetimeSpending,
+			YTDSpending: this.YTDSpending
 		}
 	}
 
