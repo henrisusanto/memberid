@@ -12,8 +12,7 @@ export class ClientDisableMember {
     try {
       var memberEntity = await this.repository.findOne(id)
       memberEntity.disable()
-      const saved = await this.repository.save(memberEntity)
-      return saved.exportToPersistence()
+      return await this.repository.save(memberEntity)
     } catch (error) {
       throw new Error (error)
     }

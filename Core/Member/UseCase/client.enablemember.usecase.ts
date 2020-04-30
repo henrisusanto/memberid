@@ -12,8 +12,7 @@ export class ClientEnableMember {
     try {
       var memberEntity = await this.repository.findOne(id)
       memberEntity.enable()
-      const saved = await this.repository.save(memberEntity)
-      return saved.exportToPersistence()
+      return await this.repository.save(memberEntity)
     } catch (error) {
       throw new Error (error)
     }

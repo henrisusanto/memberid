@@ -10,7 +10,7 @@ interface memberListParameter {
 }
 
 export interface MemberRepositoryInterface {
-	save (data: MemberEntity): Promise <MemberEntity>;
+	save (data: MemberEntity): Promise <number>;
 	findAll (parameters: memberListParameter): Promise <MemberEntity[]>;
 	findOne (id: number): Promise <MemberEntity>;
 }

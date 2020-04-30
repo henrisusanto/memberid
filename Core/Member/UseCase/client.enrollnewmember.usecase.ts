@@ -19,8 +19,7 @@ export class ClientEnrollNewMember {
         RegisterDate: RegisterDate,
         DateOfBirth: DateOfBirth
       })
-      const saved = await this.repository.save(memberEntity)
-      return saved.exportProfile()
+      return await this.repository.save(memberEntity)
     } catch (error) {
       throw new Error (error)
     }

@@ -91,17 +91,6 @@ export class MemberEntity {
 		this.YTDSpending = data.YTDSpending
 	}
 
-	public exportProfile () {
-		return {
-			Id: this.Id,
-			FullName: this.FullName,
-			Email: this.Email,
-			PhoneNumber: this.PhoneNumber,
-			RegisterDate: this.RegisterDate,
-			DateOfBirth: this.DateOfBirth
-		}
-	}
-
 	public exportToPersistence () {
 		return {
 			Id: this.Id,
