@@ -1,4 +1,4 @@
-import { QualificationEntity, SimpleQualification } from '../Entity/qualification.entity'
+import { QualificationEntity, SimpleQualification, FullQualification } from '../Entity/qualification.entity'
 
 export interface SimpleTier {
 	Name: string,
@@ -27,11 +27,35 @@ export class TierAggregateRoot {
 		return this.Qualifications
 	}
 
+	public pushQualification (qualification: QualificationEntity): void {
+		this.Qualifications.push(qualification)
+	}
+
+	public importFromPersistence (Id: number, Name: string, Year: number) {
+		this.Id = Id
+		this.Name = Name
+		this.Year = Year
+		this.Qualifications = []
+	}
+
 	public toPersistence () {
 		return {
 			Id: this.Id,
 			Name: this.Name,
 			Year: this.Year
+		}
+	}
+
+	public toAPI () {
+		let Qualifications: FullQualification [] = []
+		for (let q of this.Qualifications) {
+			Qualifications.push (q.toPersistence ())
+		}
+		return {
+			Id: this.Id,
+			Name: this.Name,
+			Year: this.Year,
+			Qualifications
 		}
 	}
 

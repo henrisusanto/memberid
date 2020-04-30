@@ -11,6 +11,7 @@ export class ClientCreateDraftTier {
 
   public async execute (year: number, tiers: SimpleTier[]) {
     try {
+      let created: TierAggregateRoot[] = []
       for (let tier of tiers) {
         let tierAggregateRoot = new TierAggregateRoot ()
         tierAggregateRoot.createDraft (
@@ -19,9 +20,9 @@ export class ClientCreateDraftTier {
           year,
           tier.Qualifications
         )
-        this.repository.save(tierAggregateRoot)
+        created.push (this.repository.save(tierAggregateRoot))
       }
-      // return saved.exportToPersistence()
+      // return created.exportToPersistence()
     } catch (error) {
       throw new Error (error)
     }
