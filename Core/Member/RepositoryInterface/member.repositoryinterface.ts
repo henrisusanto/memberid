@@ -1,6 +1,6 @@
 import { MemberEntity } from '../Entity/member.entity'
 
-interface memberListParameter {
+export interface MemberListParameter {
   limit: number,
   offset: number,
   search: string,
@@ -11,6 +11,6 @@ interface memberListParameter {
 
 export interface MemberRepositoryInterface {
 	save (data: MemberEntity): Promise <number>;
-	findAll (parameters: memberListParameter): Promise <MemberEntity[]>;
+	findAll (parameters: MemberListParameter): Promise <MemberEntity[]>;
 	findOne (id: number): Promise <MemberEntity>;
 }

@@ -1,5 +1,5 @@
 import { MemberRepositoryInterface } from '../RepositoryInterface/member.repositoryinterface'
-import { MemberEntity } from '../Entity/member.entity'
+import { MemberEntity, ProfileJSON } from '../Entity/member.entity'
 
 export class ClientUpdateMemberProfile {
 
@@ -9,11 +9,26 @@ export class ClientUpdateMemberProfile {
 		this.repository = repositoryConcrete
 	}
 
-  public async  execute (Id: number, FullName: string, Email: string, PhoneNumber: string, RegisterDate: Date, DateOfBirth: Date) {
+  public async  execute (
+    Id: number,
+    FullName: string,
+    Email: string,
+    PhoneNumber: string,
+    RegisterDate: Date,
+    DateOfBirth: Date
+  ) {
     try {
-      const memberEntity = new MemberEntity()
-      memberEntity.updateProfile (Id, {FullName, Email, PhoneNumber, RegisterDate, DateOfBirth})
-      return await this.repository.save(memberEntity)
+      const member = await this.repository.findOne (Id)
+      if (!member) throw new Error ('Member not found')
+      const profile: ProfileJSON = {
+        FullName: FullName,
+        Email: Email,
+        PhoneNumber: PhoneNumber,
+        RegisterDate: RegisterDate,
+        DateOfBirth: DateOfBirth
+      }
+      member.updateProfile (profile)
+      return await this.repository.save(member)
     } catch (error) {
       throw new Error (error)
     }

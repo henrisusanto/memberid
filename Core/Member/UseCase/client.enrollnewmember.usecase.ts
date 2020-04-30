@@ -1,5 +1,5 @@
 import { MemberRepositoryInterface } from '../RepositoryInterface/member.repositoryinterface'
-import { MemberEntity } from '../Entity/member.entity'
+import { MemberEntity, ProfileJSON } from '../Entity/member.entity'
 
 export class ClientEnrollNewMember {
 
@@ -12,13 +12,14 @@ export class ClientEnrollNewMember {
   public async  execute (FullName: string, Email: string, PhoneNumber: string, RegisterDate: Date, DateOfBirth: Date) {
     try {
       const memberEntity = new MemberEntity()
-      memberEntity.enroll({
+      const profile: ProfileJSON = {
         FullName: FullName,
         Email: Email,
         PhoneNumber: PhoneNumber,
         RegisterDate: RegisterDate,
         DateOfBirth: DateOfBirth
-      })
+      }
+      memberEntity.enroll(profile)
       return await this.repository.save(memberEntity)
     } catch (error) {
       throw new Error (error)

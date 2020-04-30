@@ -7,10 +7,10 @@ export class ClientGetMemberProfile {
 		this.repository = repositoryConcrete
 	}
 
-  public async  execute (id: number) {
+  public async execute (id: number) {
     try {
-      const found = await this.repository.findOne(id)
-      return found.exportToPersistence()
+      const member = await this.repository.findOne(id)
+      return member.toJSON ()
     } catch (error) {
       throw new Error (error)
     }

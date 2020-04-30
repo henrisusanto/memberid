@@ -1,13 +1,4 @@
-
-interface MemberProfile {
-	FullName: string
-	Email: string
-	PhoneNumber: string
-	RegisterDate: Date
-	DateOfBirth: Date
-}
-
-interface PersistenceData {
+export interface MemberJSON {
 	Id: number
 	FullName: string
 	Email: string
@@ -21,7 +12,15 @@ interface PersistenceData {
 	LifetimeVisit: number
 	YTDVisit: number
 	LifetimeSpending: number
-	YTDSpending: number
+	YTDSpending: number	
+}
+
+export interface ProfileJSON {
+	FullName: string,
+	Email: string,
+	PhoneNumber: string,
+	RegisterDate: Date,
+	DateOfBirth: Date
 }
 
 export class MemberEntity {
@@ -40,7 +39,7 @@ export class MemberEntity {
 	protected LifetimeSpending: number
 	protected YTDSpending: number
 
-	public enroll (data: MemberProfile): void {
+	public enroll (data: ProfileJSON): void {
 		this.FullName = data.FullName
 		this.Email = data.Email
 		this.PhoneNumber = data.PhoneNumber
@@ -57,8 +56,7 @@ export class MemberEntity {
 		this.YTDSpending = 0
 	}
 
-	public updateProfile (Id: number, data: MemberProfile): void {
-		this.Id = Id
+	public updateProfile (data: ProfileJSON): void {
 		this.FullName = data.FullName
 		this.Email = data.Email
 		this.PhoneNumber = data.PhoneNumber
@@ -74,7 +72,7 @@ export class MemberEntity {
 		this.Status = true
 	}
 
-	public importFromPersistence (data: PersistenceData): void {
+	public fromJSON (data: MemberJSON): void {
 		this.Id = data.Id
 		this.FullName = data.FullName
 		this.Email = data.Email
@@ -91,7 +89,7 @@ export class MemberEntity {
 		this.YTDSpending = data.YTDSpending
 	}
 
-	public exportToPersistence () {
+	public toJSON (): MemberJSON {
 		return {
 			Id: this.Id,
 			FullName: this.FullName,
