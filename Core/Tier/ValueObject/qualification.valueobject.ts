@@ -1,5 +1,4 @@
 export interface QualificationJSON {
-	Id: number
 	Tier: number
 	MemberField: string
 	ThresholdValue: number
@@ -10,8 +9,7 @@ export interface SimpleQualificationJSON {
 	ThresholdValue: number
 }
 
-export class QualificationEntity {
-	protected Id: number
+export class QualificationValueObject {
 	protected Tier: number
 	protected MemberField: string
 	protected ThresholdValue: number
@@ -24,7 +22,6 @@ export class QualificationEntity {
 
 	public toJSON (): QualificationJSON {
 		return {
-			Id: this.Id,
 			Tier: this.Tier,
 			MemberField: this.MemberField,
 			ThresholdValue: this.ThresholdValue
@@ -32,10 +29,16 @@ export class QualificationEntity {
 	}
 
 	public fromJSON (data: QualificationJSON) {
-		this.Id = data.Id
 		this.Tier = data.Tier
 		this.MemberField = data.MemberField
 		this.ThresholdValue = data.ThresholdValue
+	}
+
+	public toSimpleJSON (): SimpleQualificationJSON {
+		return {
+			MemberField: this.MemberField,
+			ThresholdValue: this.ThresholdValue
+		}
 	}
 
 }

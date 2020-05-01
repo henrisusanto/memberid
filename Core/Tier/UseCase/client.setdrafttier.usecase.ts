@@ -1,7 +1,7 @@
 import { TierRepositoryInterface } from '../RepositoryInterface/tier.repositoryinterface'
 import { TierAggregateRoot, SimpleTierJSON } from '../AggregateRoot/tier.aggregateroot'
 
-export class ClientCreateDraftTier {
+export class ClientSetDraftTier {
 
 	protected repository
 
@@ -10,6 +10,7 @@ export class ClientCreateDraftTier {
 	}
 
   public async execute (Year: number, Tiers: SimpleTierJSON []) {
+    if (Year <= new Date().getFullYear()) throw new Error ('Draft could only set for future year')
     try {
       for (let Tier of Tiers) {
         let tierAggregateRoot = new TierAggregateRoot ()
