@@ -1,5 +1,5 @@
 import { TierRepositoryInterface } from '../RepositoryInterface/tier.repositoryinterface'
-import { TierAggregateRoot, SimpleTier } from '../AggregateRoot/tier.aggregateroot'
+import { TierAggregateRoot, SimpleTierJSON } from '../AggregateRoot/tier.aggregateroot'
 
 export class ClientCreateDraftTier {
 
@@ -9,19 +9,15 @@ export class ClientCreateDraftTier {
 		this.repository = repositoryConcrete
 	}
 
-  public async execute (year: number, tiers: SimpleTier[]) {
+  public async execute (Year: number, Tiers: SimpleTierJSON []) {
     try {
-      for (let tier of tiers) {
+      for (let Tier of Tiers) {
         let tierAggregateRoot = new TierAggregateRoot ()
-        tierAggregateRoot.createDraft (
-          await this.repository.generateId (),
-          tier.Name,
-          year,
-          tier.Qualifications
-        )
-        this.repository.save(tierAggregateRoot)
+        let Id = await this.repository.generateId ()
+        tierAggregateRoot.createDraft (Id, Year, Tier)
+        await this.repository.save (tierAggregateRoot)
       }
-      // return saved.exportToPersistence()
+      return Year
     } catch (error) {
       throw new Error (error)
     }

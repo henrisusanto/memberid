@@ -1,8 +1,15 @@
-import { QualificationEntity, SimpleQualification } from '../Entity/qualification.entity'
+import { QualificationEntity, QualificationJSON, SimpleQualificationJSON } from '../Entity/qualification.entity'
 
-export interface SimpleTier {
+export interface TierJSON {
+	 Id: number
+	 Name: string
+	 Year: number
+	 Qualifications: QualificationJSON []
+}
+
+export interface SimpleTierJSON {
 	Name: string,
-	Qualifications: SimpleQualification[]
+	Qualifications: SimpleQualificationJSON[]
 }
 
 export class TierAggregateRoot {
@@ -11,28 +18,34 @@ export class TierAggregateRoot {
 	protected Year: number
 	protected Qualifications: QualificationEntity[]
 
-	public createDraft (Id: number, Name: string, Year: number, simpleQualifications: SimpleQualification[]) {
+	public createDraft (Id: number, Year: number, data: SimpleTierJSON) {
 		this.Id = Id
-		this.Name = Name
 		this.Year = Year
+		this.Name = data.Name
 		this.Qualifications = []
-		for (let sq of simpleQualifications) {
-			let q = new QualificationEntity ()
-			q.create (this.Id, sq.MemberField, sq.ThresholdValue)
-			this.Qualifications.push(q)
+
+		for (let daqu of data.Qualifications) {
+			let qualification = new QualificationEntity ()
+			qualification.createDraft(this.Id, daqu)
+			this.Qualifications.push(qualification)
 		}
 	}
 
-	public getQualifications () {
-		return this.Qualifications
+	public fromJSON (data: TierJSON): void {
+
 	}
 
-	public toPersistence () {
-		return {
+	public toJSON (): TierJSON {
+		let tierJSON: TierJSON = {
 			Id: this.Id,
 			Name: this.Name,
-			Year: this.Year
+			Year: this.Year,
+			Qualifications: []
 		}
+		for (let qualification of this.Qualifications) {
+			tierJSON.Qualifications.push (qualification.toJSON ())
+		}
+		return tierJSON
 	}
 
 }
