@@ -1,7 +1,7 @@
 import { TierRepositoryInterface } from '../RepositoryInterface/tier.repositoryinterface'
 import { TierJSON } from '../AggregateRoot/tier.aggregateroot'
 
-export class ClientGetDraftTier {
+export class ClientGetActiveTierList {
 
 	protected repository
 
@@ -9,11 +9,10 @@ export class ClientGetDraftTier {
 		this.repository = repositoryConcrete
 	}
 
-  public async execute (Year: number) {
-    if (Year <= new Date().getFullYear()) throw new Error ('Draft only for future year')
+  public async execute () {
     try {
       let tiersJSONs: TierJSON[] = []
-      for (let tierAggregateRoot of await this.repository.findByYear (Year)) {
+      for (let tierAggregateRoot of await this.repository.findByYear (new Date().getFullYear())) {
         tiersJSONs.push (tierAggregateRoot.toSimpleJSON ())
       }
       return tiersJSONs
