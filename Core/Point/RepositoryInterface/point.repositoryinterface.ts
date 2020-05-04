@@ -1,5 +1,6 @@
 import { PointHeaderAggregateRoot } from '../AggregateRoot/pointheader.aggregateroot'
 
-export interface MemberRepositoryInterface {
+export interface PointRepositoryInterface {
+	generateId (): Promise <number>;
 	save (data: PointHeaderAggregateRoot): Promise <number>;
 }

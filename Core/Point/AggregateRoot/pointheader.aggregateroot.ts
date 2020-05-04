@@ -6,18 +6,72 @@ export interface PointHeaderJSON {
 	Status: string
 	Amount: number
 	Remarks: string
-	ExpiredDate: Date
 	Details: PointDetailJSON[]
 }
 
 export class PointHeaderAggregateRoot {
 	protected Id: number
 	protected Member: number
-	protected Status: string // Actived, Cancelled, Expired
+	protected Status: string // Actived, Cancelled
 	protected Amount: number
 	protected Remarks: string
-	protected ExpiredDate: Date
 	protected Details: PointDetailEntity[]
+
+	public ClientAddMemberPoint (Id:number, Member: number, Amount: number, Remarks: string) {
+		this.Id = Id
+		this.Member = Member
+		this.Status = 'Actived'
+		this.Amount = Amount
+		this.Remarks= Remarks
+
+		let detail = new PointDetailEntity ()
+		detail.create({
+			PointHeader: Id,
+			Amount,
+			Activity: 'MANUAL_ADD'
+		})
+		this.Details = [detail]
+	}
+
+	public ClientDeductMemberPoint (Id:number, Member: number, Amount: number, Remarks: string) {
+		Amount *= -1
+
+		this.Id = Id
+		this.Member = Member
+		this.Status = 'Actived'
+		this.Amount = Amount
+		this.Remarks= Remarks
+
+		let detail = new PointDetailEntity ()
+		detail.create({
+			PointHeader: Id,
+			Amount,
+			Activity: 'MANUAL_DEDUCT'
+		})
+		this.Details = [detail]
+	}
+
+	public SystemExpireMemberPoint (Id: number, Member: number, Details: PointDetailEntity []) {
+		this.Id = Id
+		this.Member = Member
+		this.Status = 'Actived'
+		this.Amount = 0
+		this.Details= []
+
+		for ( let detail of Details ) {
+			this.Amount -= detail.getAmount ()
+
+			let expDetail = new PointDetailEntity ()
+			expDetail.create ({
+				PointHeader: Id,
+				Amount: detail.getAmount () * -1,
+				Activity: 'POINT_EXPIRED'
+			})
+			expDetail.overrideDefaultExpiredDate (new Date ())
+			this.Details.push (expDetail)
+		}
+
+	}
 
 	public fromJSON (data: PointHeaderJSON): void {
 		this.Id = data.Id
@@ -25,7 +79,6 @@ export class PointHeaderAggregateRoot {
 		this.Status = data.Status
 		this.Amount = data.Amount
 		this.Remarks= data.Remarks
-		this.ExpiredDate = data.ExpiredDate
 		this.Details = []
 		for (let detail of data.Details) {
 			let pde = new PointDetailEntity ()
@@ -45,7 +98,6 @@ export class PointHeaderAggregateRoot {
 			Status: this.Status,
 			Amount: this.Amount,
 			Remarks: this.Remarks,
-			ExpiredDate: this.ExpiredDate,
 			Details: pdJSON
 		}
 	}
